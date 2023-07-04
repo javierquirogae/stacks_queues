@@ -11,6 +11,7 @@ class Node {
 class Stack {
   constructor() {
     this.first = null;
+    this.last = null;
     this.size = 0;
   }
 
@@ -20,12 +21,14 @@ class Stack {
 
     if (this.isEmpty()) {
       this.first = newNode;
+      this.last = newNode;
     } else {
       newNode.next = this.first;
       this.first = newNode;
     }
 
     this.size++;
+    return undefined;
   }
 
   /** pop(): remove the node from the top of the stack
@@ -36,7 +39,14 @@ class Stack {
     }
 
     const removedNode = this.first;
-    this.first = this.first.next;
+
+    if (this.size === 1) {
+      this.first = null;
+      this.last = null;
+    } else {
+      this.first = this.first.next;
+    }
+
     this.size--;
 
     return removedNode.val;
